@@ -295,8 +295,8 @@
             position: fixed;
             bottom: 25px;
             right: 25px;
-            width: 340px;
-            height: 450px;
+            width: 380px;
+            height: 520px;
             background-color: #111622;
             border: 2px solid var(--accent-purple);
             border-radius: 12px;
@@ -314,9 +314,25 @@
             font-weight: bold;
             font-size: 0.95rem;
             display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid var(--accent-purple);
+        }
+
+        .chat-header-title {
+            display: flex;
             align-items: center;
             gap: 8px;
-            border-bottom: 1px solid var(--accent-purple);
+        }
+
+        .chat-header-status {
+            font-size: 0.75rem;
+            background-color: rgba(0, 245, 212, 0.2);
+            color: var(--accent-green);
+            padding: 2px 6px;
+            border-radius: 4px;
+            text-transform: uppercase;
+            font-family: monospace;
         }
 
         .chat-logs {
@@ -329,9 +345,9 @@
             font-size: 0.88rem;
         }
 
-        .msg { padding: 10px; border-radius: 8px; max-width: 85%; line-height: 1.4; }
+        .msg { padding: 10px; border-radius: 8px; max-width: 90%; line-height: 1.4; }
         .msg.bot { background-color: #1E293B; color: var(--text-main); align-self: flex-start; border-left: 3px solid var(--accent-blue); }
-        .msg.user { background-color: var(--accent-purple); color: #FFF; align-self: flex-end; }
+        .msg.user { background-color: var(--accent-purple); color: #FFF; align-self: flex-end; font-family: 'Courier New', Courier, monospace; }
 
         .chat-input-area {
             display: flex;
@@ -346,6 +362,7 @@
             padding: 12px;
             color: #FFF;
             outline: none;
+            font-family: 'Courier New', Courier, monospace;
         }
 
         .chat-input-area button {
@@ -355,6 +372,18 @@
             padding: 0 15px;
             cursor: pointer;
             font-weight: bold;
+        }
+
+        .console-code {
+            font-family: 'Courier New', Courier, monospace;
+            background-color: #0B0F19;
+            padding: 6px;
+            border-radius: 4px;
+            color: var(--accent-green);
+            display: block;
+            margin-top: 5px;
+            font-size: 0.82rem;
+            white-space: pre-wrap;
         }
 
         footer { text-align: center; padding: 40px 0; color: var(--text-muted); border-top: 1px solid #242C3D; margin-top: 40px; }
@@ -492,24 +521,30 @@
 
     <div class="ai-chat-widget">
         <div class="chat-header">
-            <span>🤖</span> Quantum Academy Mission AI
+            <div class="chat-header-title"><span>👾</span> Console.Log</div>
+            <div class="chat-header-status">Online</div>
         </div>
         <div class="chat-logs" id="chatLogs">
             <div class="msg bot">
-                Greetings Pioneer! I am the Academy's Mission Control AI. Ask me any question about our curriculum or quantum concepts! Remember, we keep physics simple: Superposition is like a spinning coin, and Entanglement is like a pair of sync-linked custom game items! How can I help your training today?
+                <strong>Yo! Welcome to the dev log.</strong> I'm Console.Log, your quantum runtime helper. Drop any questions you have about quantum physics, math matrices, or how our academy works!
+                <br><br>
+                Think of me like a game-patch helper. Go ahead and test out our live sandbox macros:
+                <span class="console-code">/spin  - Break standard bit gravity (Superposition)\n/link  - Sync up two item inventories (Entanglement)\n/status - Pull up the server temp & state metrics</span>
             </div>
         </div>
         <div class="chat-input-area">
-            <input type="text" id="chatInput" placeholder="Ask about superposition, lobbies, or rules..." onkeydown="if(event.key === 'Enter') sendChatMessage()">
+            <input type="text" id="chatInput" placeholder="Ask a question or type a macro here..." onkeydown="if(event.key === 'Enter') sendChatMessage()">
             <button onclick="sendChatMessage()">Send</button>
         </div>
     </div>
 
     <script>
+        let qubitState = "Standard Flat Bit (0)";
+        let isEntangled = false;
+
         function toggleFaq(button) {
             const panel = button.nextElementSibling;
             const icon = button.querySelector('span');
-            
             if (panel.style.maxHeight && panel.style.maxHeight !== '0px') {
                 panel.style.maxHeight = '0px';
                 panel.style.padding = '0px 15px';
@@ -524,38 +559,74 @@
         function sendChatMessage() {
             const input = document.getElementById('chatInput');
             const logs = document.getElementById('chatLogs');
-            if(!input.value.trim()) return;
+            const rawInput = input.value.trim();
+            if(!rawInput) return;
 
-            // Render User Message
+            // Render User Input
             const userMsg = document.createElement('div');
             userMsg.className = 'msg user';
-            userMsg.textContent = input.value;
+            userMsg.textContent = rawInput;
             logs.appendChild(userMsg);
 
-            const query = input.value.toLowerCase();
+            const query = rawInput.toLowerCase();
             input.value = '';
             logs.scrollTop = logs.scrollHeight;
 
-            // Generate Context-Filtered Academy Responses (Strictly targeted for 6th-8th grade level)
+            // Engine Processing Router
             setTimeout(() => {
                 const botMsg = document.createElement('div');
                 botMsg.className = 'msg bot';
                 
-                if (query.includes('superposition') || query.includes('spinning') || query.includes('coin') || query.includes('glitch')) {
-                    botMsg.innerHTML = "🎯 <strong>Superposition Rule:</strong> Normal computer bits are like a player standing completely still at Point A or Point B. A qubit is like a character model flashing or existing in a fast blur at <em>both locations at once</em>. While spinning or blurred, it handles multiple calculations simultaneously.";
-                } else if (query.includes('entanglement') || query.includes('linked') || query.includes('teleport') || query.includes('item')) {
-                    botMsg.innerHTML = "🎯 <strong>Entanglement Rule:</strong> Qubits can become connected like a shared-inventory mod in a co-op game. If you link them together, changing an item in Player 1's slot instantly updates it in Player 2's slot halfway across the map, completely overriding distance rules.";
-                } else if (query.includes('mod') || query.includes('lobby') || query.includes('server') || query.includes('rule')) {
-                    botMsg.innerHTML = "🎯 <strong>The Modding Analogy:</strong> Just like entering a custom developer lobby allows you to toggle map settings (like turning off gravity or multiplying player speed), a quantum computer interacts directly with atomic fields to use custom physical rules standard computers can't open!";
-                } else if (query.includes('module') || query.includes('class') || query.includes('assignment') || query.includes('lesson')) {
-                    botMsg.innerHTML = "📋 <strong>Mission Status:</strong> Module 1 is currently active. Click the 'Launch Classroom' button in the menu above to open our assignment portal and check your current lesson files.";
-                } else {
-                    botMsg.innerHTML = "I am locked to Academy questions! Try asking me: 'What is superposition?' or 'How do game mods relate to quantum mechanics?' and I'll keep the answers simple!";
+                // --- CONSOLE COMMAND HOOKS ---
+                if (query.startsWith('/spin')) {
+                    qubitState = "Superposition Spinning Blur";
+                    botMsg.innerHTML = "🌀 <strong>Macro Activated: /spin</strong><br>Boom! We just hit a regular data bit with a microwave pulse. It's now spinning at high speed holding both paths open simultaneously.<br><span class='console-code'>Qubit-A Status: [▓▓▓▓▓░░░░░] Blurring 50% Heads |0⟩ and 50% Tails |1⟩</span>";
+                } 
+                else if (query.startsWith('/link')) {
+                    isEntangled = true;
+                    botMsg.innerHTML = "🔗 <strong>Macro Activated: /link</strong><br>Inventories locked! Qubit-A and Qubit-B are now officially sync-modded. Whatever you do to one instantly overrides the other.<br><span class='console-code'>Link State: Connected\nPing Delay: 0.00ms (Shatters standard server limits)</span>";
+                } 
+                else if (query.startsWith('/status')) {
+                    botMsg.innerHTML = "📊 <strong>Server Diagnostics:</strong><br><span class='console-code'>Qubit Vector: " + qubitState + "\nModded Sync Link: " + isEntangled + "\nServer Temp: -459°F (Absolute Zero to stop atoms from glitching)</span>";
+                }
+                
+                // --- CUSTOM FRIENDLY RESPONSES FOR PHYSICS & MATH ---
+                else if (query.includes('measurement') || query.includes('collapse') || query.includes('look') || query.includes('observe')) {
+                    botMsg.innerHTML = "👁️ <strong>The 'Observation' Glitch:</strong> This is the weirdest rule in the game. As long as you leave an atom alone, it stays in a spinning blur (superposition). But the exact millisecond a sensor tries to look at it, the blur instantly breaks! The coin drops flat onto a 0 or 1. It's exactly like a rendering glitch in an open-world game that forces objects to snap into high-detail models only when your player camera spins to look directly at them!";
+                }
+                else if (query.includes('math') || query.includes('matrix') || query.includes('matrices') || query.includes('vector') || query.includes('geometry')) {
+                    botMsg.innerHTML = "📐 <strong>Quantum Math Math:</strong> Regular computers do standard math (1+1=2) along flat logic lines. Quantum computers use **Coordinate Matrices and Geometry**. Instead of counting things, they track angles on a 3D grid sphere (the *Bloch Sphere*). Since you guys already crushed Geometry 1, think of it as using translation and rotation code to spin an arrow to a precise coordinate point on a map. Quantum gates are basically commands that tell the arrow how many degrees to turn!";
+                }
+                else if (query.includes('wave') || query.includes('light') || query.includes('photon') || query.includes('frequency') || query.includes('photoelectric')) {
+                    botMsg.innerHTML = "🌊 <strong>Double Identity (Wave-Particle Duality):</strong> Subatomic things like photons of light have a wild double identity. They move through a room spreading out like fluid ripples on water (waves), but the second they smash into a target, they hit like a solid pellet (particles)! In Module 1, we map out light frequencies to see exactly how much energy we need to beam at an atom to tweak its values without crashing it.";
+                }
+                else if (query.includes('schrodinger') || query.includes('cat')) {
+                    botMsg.innerHTML = "🐈 <strong>Schrödinger's Cat Explainer:</strong> This is a classic thought experiment about superposition. If you trap a cat in a closed bunker with a random atomic trigger, physics says until you open the hatch and look, the atom is in a fluid mix of both states—meaning the cat is simultaneously **both completely awake and asleep at the exact same split-second**. Opening the bunker forces the server to pick one reality and load it.";
+                }
+                else if (query.includes('gate') || query.includes('hadamard') || query.includes('cnot')) {
+                    botMsg.innerHTML = "🎛️ <strong>Logic Gate Upgrades:</strong> Normal logic gates are simple on/off switches. Quantum gates change how an atom spins. A **Hadamard Gate** triggers a spin mod, immediately tossing a flat bit into a superposition blur. A **CNOT Gate** acts like an *'IF statement'* code block that links two qubits together so they become sync-entangled!";
+                }
+                
+                // --- CORE CONCEPTS (FALLBACKS) ---
+                else if (query.includes('superposition') || query.includes('spinning') || query.includes('coin')) {
+                    botMsg.innerHTML = "🎯 <strong>Superposition 101:</strong> Normal bits are like a character stuck standing still at Point A or Point B. A qubit is like a speed-runner glitching out so fast that they exist at **both points at once**. Try typing <span class='console-code'>/spin</span> to see it!";
+                } 
+                else if (query.includes('entanglement') || query.includes('linked') || query.includes('teleport')) {
+                    botMsg.innerHTML = "🎯 <strong>Entanglement 101:</strong> This is like two players sharing an inventory space across a giant map. If Player 1 drops an item in Maryland, it immediately duplicates inside Player 2's slot across the world without any lag. Try typing <span class='console-code'>/link</span> to activate it!";
+                } 
+                else if (query.includes('mod') || query.includes('lobby') || query.includes('server')) {
+                    botMsg.innerHTML = "🎮 <strong>Lobby Rules:</strong> Just like getting administrator access in a private server lets you change game gravity or jump heights, quantum computers let us open up the universe's 'developer console' to mess with data rules regular phones can't touch!";
+                } 
+                else if (query.includes('module') || query.includes('class') || query.includes('assignment') || query.includes('lesson')) {
+                    botMsg.innerHTML = "📋 <strong>Mission Log Update:</strong> Module 1 is completely live right now. Hit that 'Launch Classroom' button in our catalog card up above to check out our main challenge sheets!";
+                } 
+                else {
+                    botMsg.innerHTML = "📡 <strong>Got your query, logging it now!</strong> That's actually an awesome question. To help me explain it best, tell me: Are you trying to understand the **underlying physics code**, the **matrix/geometry math**, or how we **mod** it inside our console registers?";
                 }
                 
                 logs.appendChild(botMsg);
                 logs.scrollTop = logs.scrollHeight;
-            }, 600);
+            }, 400);
         }
     </script>
 </body>
