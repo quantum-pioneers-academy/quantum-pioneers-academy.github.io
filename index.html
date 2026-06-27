@@ -127,7 +127,82 @@
             gap: 10px;
         }
 
-        /* Analogy Sidebar Component */
+        /* Cartoon Avatar Panel Layout */
+        .avatar-panel {
+            display: flex;
+            gap: 20px;
+            align-items: center;
+            background: linear-gradient(135deg, #1E293B, #0F172A);
+            border: 1px solid #334155;
+            padding: 20px;
+            border-radius: 8px;
+            margin-top: 15px;
+        }
+
+        .avatar-img-placeholder {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            background-color: var(--accent-purple);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.5rem;
+            flex-shrink: 0;
+            border: 3px solid var(--accent-blue);
+            box-shadow: 0 0 15px rgba(0, 210, 255, 0.3);
+        }
+
+        .avatar-img {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+
+        .bubble-speech {
+            color: var(--text-main);
+            font-style: italic;
+        }
+
+        /* Interactive FAQ Accordion Styles */
+        .faq-item {
+            margin-bottom: 12px;
+            border: 1px solid #242C3D;
+            border-radius: 6px;
+            overflow: hidden;
+        }
+
+        .faq-question {
+            background-color: #0F131C;
+            padding: 15px;
+            width: 100%;
+            text-align: left;
+            border: none;
+            color: #FFF;
+            font-size: 1.05rem;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: background 0.3s;
+        }
+
+        .faq-question:hover {
+            background-color: #1A2233;
+        }
+
+        .faq-answer {
+            background-color: var(--card-bg);
+            padding: 0 15px;
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease-out, padding 0.3s ease-out;
+            color: var(--text-muted);
+            font-size: 0.95rem;
+        }
+
         .concept-box {
             background-color: #0F131C;
             border-left: 4px solid var(--accent-purple);
@@ -139,6 +214,25 @@
         .concept-box h4 {
             color: var(--accent-green);
             margin-bottom: 5px;
+        }
+
+        /* Video Embed Aspect Ratio Box */
+        .video-container {
+            position: relative;
+            padding-bottom: 56.25%; /* 16:9 ratio */
+            height: 0;
+            overflow: hidden;
+            border-radius: 8px;
+            border: 1px solid #242C3D;
+            margin-top: 15px;
+        }
+
+        .video-container iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
         }
 
         /* Learning Catalog Grid Component */
@@ -176,7 +270,6 @@
         .catalog-card p { font-size: 0.9rem; color: var(--text-muted); margin-bottom: 15px; }
         .module-meta { font-size: 0.8rem; color: var(--accent-purple); font-weight: 600; margin-bottom: 15px; }
 
-        /* Dynamic Launch Buttons */
         .launch-btn {
             display: block;
             text-align: center;
@@ -235,22 +328,49 @@
             <div class="content-area">
                 
                 <div class="card">
-                    <div class="card-title">🎮 Why Join the Academy?</div>
-                    <p>Right now, tech giants are spinning up multi-million dollar processors that use atomic particles instead of silicon chips. Mastering this sounds impossible, but if you understand the basic 2D and 3D geometric coordinates you use in school, you already have the secret manual required to control a real quantum computer.</p>
+                    <div class="card-title">🚀 Meet Your Captain</div>
+                    <div class="avatar-panel">
+                        <div class="avatar-img-placeholder">
+                            <img src="anay-cartoon.png" alt="Anay Avatar" class="avatar-img" onerror="this.style.display='none';">⚡
+                        </div>
+                        <div class="bubble-speech">
+                            "Hey! I'm Anay. Welcome to the workspace. When I first heard about quantum computing, I thought it required a college degree in rocket science. It doesn't. If you've played sandbox games or like hacking custom mod scripts, you already understand how to bend computational logic rules. Let me break down how this works below!"
+                        </div>
+                    </div>
                 </div>
 
                 <div class="card">
-                    <div class="card-title">🔮 The Rules of the Quantum Universe</div>
-                    <p>In our everyday world, things are simple: a light switch is either <strong>ON</strong> or <strong>OFF</strong>. But at the atomic level, the universe starts acting like a simulator with cheat codes enabled. Here are the core laws we use to compute:</p>
+                    <div class="card-title">🤔 New Here? Let's Break it Down</div>
+                    <p style="color: var(--text-muted); margin-bottom: 20px;">Click the questions below to see how a quantum device flips the entire universe upside down.</p>
                     
-                    <div class="concept-box">
-                        <h4>1. Superposition (The Spinning Coin Analogy)</h4>
-                        <p>A coin flat on a table is either "Heads" or "Tails" (0 or 1). But a <strong>spinning coin</strong> is a liquid blur of both states simultaneously. It only chooses a side when you stop it. In quantum computing, our data bits spin in a state called a <strong>Qubit</strong>, allowing us to evaluate countless combinations all at once.</p>
+                    <div class="faq-item">
+                        <button class="faq-question" onclick="toggleFaq(this)">
+                            What makes a Quantum Computer different from my phone? 📱
+                            <span>+</span>
+                        </button>
+                        <div class="faq-answer">
+                            <p style="padding: 15px 0;">Your phone and Xbox run on standard silicon microchips that read data as simple bits: a switch is either <strong>0 (OFF)</strong> or <strong>1 (ON)</strong>. A quantum computer doesn't use microchips. It traps isolated tiny atoms, cooling them down colder than deep outer space, and programs data directly onto the atom's spin behavior!</p>
+                        </div>
                     </div>
 
-                    <div class="concept-box">
-                        <h4>2. Entanglement (The Teleporting Dice Analogy)</h4>
-                        <p>Imagine two cosmic dice. You roll yours here in Howard County and hit a 6; your teammate's die halfway around the planet instantly snaps to a 6 at that exact split-second. We leverage this deep physical connection to tie data streams together into un-hackable cryptography links.</p>
+                    <div class="faq-item">
+                        <button class="faq-question" onclick="toggleFaq(this)">
+                            What is a "Qubit" anyway? 🌌
+                            <span>+</span>
+                        </button>
+                        <div class="faq-answer">
+                            <p style="padding: 15px 0;">Think of a regular data bit as a coin lying flat on a desk—it can only show Heads or Tails. A <strong>Qubit</strong> is what happens when you spin that coin! While it's spinning in a fast blur, it is holding a fluid mixture of <em>both states at the exact same split-second</em>. This phenomenon is called <strong>Superposition</strong>, and it lets us process complex codes simultaneously.</p>
+                        </div>
+                    </div>
+
+                    <div class="faq-item">
+                        <button class="faq-question" onclick="toggleFaq(this)">
+                            Wait, can it teleport data? 🔮
+                            <span>+</span>
+                        </button>
+                        <div class="faq-answer">
+                            <p style="padding: 15px 0;">Kind of! Quantum mechanics has a rule called <strong>Entanglement</strong>. If you bind two qubits together, they act like a pair of magical sync-linked dice. If you roll one here in Maryland and hit a 6, your friend's die on the other side of the planet instantly turns into a 6 without a single wire connecting them. We use this connection to make hacker-proof encryption loops!</p>
+                        </div>
                     </div>
                 </div>
 
@@ -302,9 +422,12 @@
                 </div>
 
                 <div class="card">
-                    <h3>🎬 Essential Stream</h3>
-                    <p style="font-size: 0.95rem; color: var(--text-muted); margin-bottom: 10px;">Watch this brief foundational breakdown before our inaugural briefing session:</p>
-                    <li style="list-style: none;"><a href="https://www.youtube.com/watch?v=JhHMJCUmq28" target="_blank" style="color: var(--accent-blue); text-decoration: none; font-weight: bold;">📺 Video: Quantum Beginners Guide →</a></li>
+                    <h3>🎬 Essential Video Stream</h3>
+                    <p style="font-size: 0.95rem; color: var(--text-muted); margin-bottom: 10px;">Watch this brief video breakdown explaining the fundamentals of qubits before our inaugural briefing session:</p>
+                    
+                    <div class="video-container">
+                        <iframe src="https://www.youtube.com/embed/JhHMJCUmq28" title="Quantum Computing Explainer" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                    </div>
                 </div>
 
             </div>
@@ -314,5 +437,22 @@
             <p>Quantum Pioneers Academy © 2026 • Built and Maintained by Student Leadership</p>
         </footer>
     </div>
+
+    <script>
+        function toggleFaq(button) {
+            const panel = button.nextElementSibling;
+            const icon = button.querySelector('span');
+            
+            if (panel.style.maxHeight && panel.style.maxHeight !== '0px') {
+                panel.style.maxHeight = '0px';
+                panel.style.padding = '0px 15px';
+                icon.textContent = '+';
+            } else {
+                panel.style.maxHeight = panel.scrollHeight + "px";
+                panel.style.padding = '10px 15px';
+                icon.textContent = '−';
+            }
+        }
+    </script>
 </body>
 </html>
