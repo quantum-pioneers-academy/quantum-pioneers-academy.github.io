@@ -142,7 +142,7 @@
         .avatar-img-box {
             width: 110px;
             height: 110px;
-            border-radius: 12px; /* Smooth rounded corners for portraits */
+            border-radius: 12px;
             overflow: hidden;
             border: 3px solid var(--accent-blue);
             box-shadow: 0 0 15px rgba(0, 210, 255, 0.3);
@@ -152,14 +152,15 @@
         .avatar-img {
             width: 100%;
             height: 100%;
-            object-fit: cover; /* Keeps aspect ratio clean */
-            object-position: center top; /* Centers the face framing */
+            object-fit: cover;
+            object-position: center top;
         }
 
         .bubble-speech {
             color: var(--text-main);
-            font-style: italic;
-            font-size: 1rem;
+            font-style: normal;
+            font-size: 1.05rem;
+            line-height: 1.5;
         }
 
         /* Interactive FAQ Accordion Styles */
@@ -385,7 +386,7 @@
                             <img src="IMG_8112.jpeg" alt="Anay Portrait Photo" class="avatar-img">
                         </div>
                         <div class="bubble-speech">
-                            "Hey! I'm Anay. Welcome to the workspace. When I first heard about quantum computing, I thought it required a college degree in rocket science. It doesn't. If you've played sandbox games or like hacking custom mod scripts, you already understand how to bend computational logic rules. Let me break down how this works below!"
+                            "Hey! I'm Anay. Welcome to our workspace. When I first heard about quantum computing, I thought it required a college degree in rocket science. It doesn't! If you've ever jumped into a <strong>custom game lobby</strong> or messed around with <strong>game mods</strong>, you know how you can completely alter the server physics—like turning off map gravity or allowing players to glitch into custom states. Quantum computing is exactly like that. It's like opening up a hidden <strong>developer menu for the universe</strong>, where we can rewrite the default rules of data. Let me break down how these custom mechanics work below!"
                         </div>
                     </div>
                 </div>
@@ -400,7 +401,7 @@
                             <span>+</span>
                         </button>
                         <div class="faq-answer">
-                            <p style="padding: 15px 0;">Your phone and Xbox run on standard silicon microchips that read data as simple bits: a switch is either <strong>0 (OFF)</strong> or <strong>1 (ON)</strong>. A quantum computer doesn't use microchips. It traps isolated tiny atoms, cooling them down colder than deep outer space, and programs data directly onto the atom's spin behavior!</p>
+                            <p style="padding: 15px 0;">Standard electronics run on regular silicon microchips that read data as simple bits: a path is either strictly <strong>0 (OFF)</strong> or strictly <strong>1 (ON)</strong>. A quantum computer doesn't use microchips. Instead, it traps tiny single atoms, freezes them colder than outer space, and programs data directly onto how the atoms vibrate and spin!</p>
                         </div>
                     </div>
 
@@ -410,17 +411,17 @@
                             <span>+</span>
                         </button>
                         <div class="faq-answer">
-                            <p style="padding: 15px 0;">Think of a regular data bit as a coin lying flat on a desk—it can only show Heads or Tails. A <strong>Qubit</strong> is what happens when you spin that coin! While it's spinning in a fast blur, it is holding a fluid mixture of <em>both states at the exact same split-second</em>. This phenomenon is called <strong>Superposition</strong>, and it lets us process complex codes simultaneously.</p>
+                            <p style="padding: 15px 0;">Think of a regular data bit as a coin resting flat on a desk—it's locked as either Heads or Tails. A <strong>Qubit</strong> is what happens when you spin that coin! While it's spinning in a fast blur, it holds a fluid mixture of <em>both states at the exact same split-second</em>. This phenomenon is called <strong>Superposition</strong>, and it lets us process thousands of complex data paths simultaneously.</p>
                         </div>
                     </div>
 
                     <div class="faq-item">
                         <button class="faq-question" onclick="toggleFaq(this)">
-                            Wait, can it teleport data? 🔮
+                            Wait, can it link data across distances? 🔮
                             <span>+</span>
                         </button>
                         <div class="faq-answer">
-                            <p style="padding: 15px 0;">Kind of! Quantum mechanics has a rule called <strong>Entanglement</strong>. If you bind two qubits together, they act like a pair of magical sync-linked dice. If you roll one here in Maryland and hit a 6, your friend's die on the other side of the planet instantly turns into a 6 without a single wire connecting them. We use this connection to make hacker-proof encryption loops!</p>
+                            <p style="padding: 15px 0;">Yes! Quantum mechanics has a rule called <strong>Entanglement</strong>. If you bind two qubits together, they act like a pair of magical sync-linked game items. If you change the state of one here in Maryland, its linked partner on the other side of the planet instantly updates to match it without a single wire or network path connecting them. We use this connection to build hacker-proof encryption setups!</p>
                         </div>
                     </div>
                 </div>
@@ -495,11 +496,11 @@
         </div>
         <div class="chat-logs" id="chatLogs">
             <div class="msg bot">
-                Greetings Pioneer! I am the Academy's Mission Control AI. Ask me anything about our curriculum assignments or concepts! Remember, we explain the subatomic world using game analogies: Superposition is like a spinning coin, and Entanglement is like a pair of teleporting sync-linked dice! How can I assist your mission training today?
+                Greetings Pioneer! I am the Academy's Mission Control AI. Ask me any question about our curriculum or quantum concepts! Remember, we keep physics simple: Superposition is like a spinning coin, and Entanglement is like a pair of sync-linked custom game items! How can I help your training today?
             </div>
         </div>
         <div class="chat-input-area">
-            <input type="text" id="chatInput" placeholder="Ask about missions or analogies..." onkeydown="if(event.key === 'Enter') sendChatMessage()">
+            <input type="text" id="chatInput" placeholder="Ask about superposition, lobbies, or rules..." onkeydown="if(event.key === 'Enter') sendChatMessage()">
             <button onclick="sendChatMessage()">Send</button>
         </div>
     </div>
@@ -535,445 +536,26 @@
             input.value = '';
             logs.scrollTop = logs.scrollHeight;
 
-            // Generate Context-Filtered Academy Responses
+            // Generate Context-Filtered Academy Responses (Strictly targeted for 6th-8th grade level)
             setTimeout(() => {
                 const botMsg = document.createElement('div');
                 botMsg.className = 'msg bot';
                 
-                if (query.includes('superposition') || query.includes('spinning') || query.includes('coin')) {
-                    botMsg.innerHTML = "<strong>Superposition Rule:</strong> Standard bits are flat coins (0 or 1). Qubits spin! While spinning, they are a fluid blur of both 0 and 1 at once, allowing a quantum processor to check millions of solutions simultaneously.";
-                } else if (query.includes('entanglement') || query.includes('dice') || query.includes('teleport')) {
-                    botMsg.innerHTML = "<strong>Entanglement Rule:</strong> Qubits can become mathematically linked like magical dice. Roll one in Maryland, and its twin halfway across the universe snaps to the exact same value instantly without wires. We use this to build hacker-proof cryptographic lines!";
+                if (query.includes('superposition') || query.includes('spinning') || query.includes('coin') || query.includes('glitch')) {
+                    botMsg.innerHTML = "🎯 <strong>Superposition Rule:</strong> Normal computer bits are like a player standing completely still at Point A or Point B. A qubit is like a character model flashing or existing in a fast blur at <em>both locations at once</em>. While spinning or blurred, it handles multiple calculations simultaneously.";
+                } else if (query.includes('entanglement') || query.includes('linked') || query.includes('teleport') || query.includes('item')) {
+                    botMsg.innerHTML = "🎯 <strong>Entanglement Rule:</strong> Qubits can become connected like a shared-inventory mod in a co-op game. If you link them together, changing an item in Player 1's slot instantly updates it in Player 2's slot halfway across the map, completely overriding distance rules.";
+                } else if (query.includes('mod') || query.includes('lobby') || query.includes('server') || query.includes('rule')) {
+                    botMsg.innerHTML = "🎯 <strong>The Modding Analogy:</strong> Just like entering a custom developer lobby allows you to toggle map settings (like turning off gravity or multiplying player speed), a quantum computer interacts directly with atomic fields to use custom physical rules standard computers can't open!";
                 } else if (query.includes('module') || query.includes('class') || query.includes('assignment') || query.includes('lesson')) {
-                    botMsg.innerHTML = "<strong>Mission Catalog Update:</strong> Module 1 is currently active! Click the 'Launch Classroom' button above to join our Google Classroom stream and access your assignments.";
+                    botMsg.innerHTML = "📋 <strong>Mission Status:</strong> Module 1 is currently active. Click the 'Launch Classroom' button in the menu above to open our assignment portal and check your current lesson files.";
                 } else {
-                    botMsg.innerHTML = "I am restricted to Quantum Pioneers Academy topics! Please ask about our core concepts (Superposition, Entanglement), Module 1 assignments, or the video logs.";
+                    botMsg.innerHTML = "I am locked to Academy questions! Try asking me: 'What is superposition?' or 'How do game mods relate to quantum mechanics?' and I'll keep the answers simple!";
                 }
                 
                 logs.appendChild(botMsg);
                 logs.scrollTop = logs.scrollHeight;
             }, 600);
-        }
-    </script>
-</body>
-</html>        /* Top Navigation Bar */
-        nav {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 20px;
-            background-color: var(--card-bg);
-            border: 1px solid #242C3D;
-            border-radius: 8px;
-            margin-bottom: 30px;
-        }
-
-        nav .logo {
-            font-weight: bold;
-            font-size: 1.3rem;
-            background: linear-gradient(to right, var(--accent-blue), var(--accent-purple));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
-        nav ul {
-            display: flex;
-            list-style: none;
-            gap: 20px;
-        }
-
-        nav a {
-            color: var(--text-muted);
-            text-decoration: none;
-            font-weight: 600;
-            transition: color 0.2s;
-        }
-
-        nav a:hover, nav a.active {
-            color: var(--accent-blue);
-        }
-
-        /* Hero Header Section */
-        header {
-            text-align: center;
-            padding: 50px 20px;
-            background: radial-gradient(circle at top, #1A233A 0%, var(--bg-dark) 70%);
-            margin-bottom: 40px;
-        }
-
-        header h1 {
-            font-size: 2.8rem;
-            color: #FFF;
-            margin-bottom: 15px;
-        }
-
-        header .highlight {
-            color: var(--accent-blue);
-        }
-
-        header p {
-            color: var(--text-muted);
-            font-size: 1.2rem;
-            max-width: 800px;
-            margin: 0 auto;
-        }
-
-        /* Two-Column Main Layout Grid */
-        .main-grid {
-            display: grid;
-            grid-template-columns: 2fr 1fr;
-            gap: 30px;
-        }
-
-        @media (max-width: 768px) {
-            .main-grid { 
-                grid-template-columns: 1fr; 
-            }
-        }
-
-        /* Reusable Card Elements */
-        .card {
-            background-color: var(--card-bg);
-            border: 1px solid #242C3D;
-            border-radius: 10px;
-            padding: 30px;
-            margin-bottom: 30px;
-        }
-
-        .card-title {
-            font-size: 1.6rem;
-            margin-bottom: 20px;
-            color: #FFF;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        /* Cartoon Avatar Panel Layout */
-        .avatar-panel {
-            display: flex;
-            gap: 20px;
-            align-items: center;
-            background: linear-gradient(135deg, #1E293B, #0F172A);
-            border: 1px solid #334155;
-            padding: 20px;
-            border-radius: 8px;
-            margin-top: 15px;
-        }
-
-        .avatar-img-placeholder {
-            width: 100px;
-            height: 100px;
-            border-radius: 50%;
-            background-color: var(--accent-purple);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 2.5rem;
-            flex-shrink: 0;
-            border: 3px solid var(--accent-blue);
-            box-shadow: 0 0 15px rgba(0, 210, 255, 0.3);
-        }
-
-        .avatar-img {
-            width: 100%;
-            height: 100%;
-            border-radius: 50%;
-            object-fit: cover;
-        }
-
-        .bubble-speech {
-            color: var(--text-main);
-            font-style: italic;
-        }
-
-        /* Interactive FAQ Accordion Styles */
-        .faq-item {
-            margin-bottom: 12px;
-            border: 1px solid #242C3D;
-            border-radius: 6px;
-            overflow: hidden;
-        }
-
-        .faq-question {
-            background-color: #0F131C;
-            padding: 15px;
-            width: 100%;
-            text-align: left;
-            border: none;
-            color: #FFF;
-            font-size: 1.05rem;
-            font-weight: 600;
-            cursor: pointer;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            transition: background 0.3s;
-        }
-
-        .faq-question:hover {
-            background-color: #1A2233;
-        }
-
-        .faq-answer {
-            background-color: var(--card-bg);
-            padding: 0 15px;
-            max-height: 0;
-            overflow: hidden;
-            transition: max-height 0.3s ease-out, padding 0.3s ease-out;
-            color: var(--text-muted);
-            font-size: 0.95rem;
-        }
-
-        .concept-box {
-            background-color: #0F131C;
-            border-left: 4px solid var(--accent-purple);
-            padding: 15px;
-            margin: 15px 0;
-            border-radius: 0 8px 8px 0;
-        }
-
-        .concept-box h4 {
-            color: var(--accent-green);
-            margin-bottom: 5px;
-        }
-
-        /* Video Embed Aspect Ratio Box */
-        .video-container {
-            position: relative;
-            padding-bottom: 56.25%; /* 16:9 ratio */
-            height: 0;
-            overflow: hidden;
-            border-radius: 8px;
-            border: 1px solid #242C3D;
-            margin-top: 15px;
-        }
-
-        .video-container iframe {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-        }
-
-        /* Learning Catalog Grid Component */
-        .catalog-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-            gap: 20px;
-            margin-top: 20px;
-        }
-
-        .catalog-card {
-            background-color: #0F131C;
-            border: 1px solid #242C3D;
-            border-radius: 8px;
-            padding: 20px;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-        }
-
-        .active-module { border-top: 4px solid var(--accent-blue); }
-        .locked-module { border-top: 4px solid var(--text-muted); opacity: 0.6; }
-
-        .module-status {
-            font-size: 0.75rem;
-            font-weight: bold;
-            text-transform: uppercase;
-            margin-bottom: 10px;
-        }
-
-        .badge-unlocked { color: var(--accent-green); }
-        .badge-locked { color: var(--text-muted); }
-
-        .catalog-card h4 { color: #FFF; margin-bottom: 8px; font-size: 1.1rem; }
-        .catalog-card p { font-size: 0.9rem; color: var(--text-muted); margin-bottom: 15px; }
-        .module-meta { font-size: 0.8rem; color: var(--accent-purple); font-weight: 600; margin-bottom: 15px; }
-
-        .launch-btn {
-            display: block;
-            text-align: center;
-            background: linear-gradient(90deg, #00A2E8, var(--accent-blue));
-            color: #FFF;
-            text-decoration: none;
-            padding: 10px;
-            border-radius: 5px;
-            font-size: 0.9rem;
-            font-weight: bold;
-            border: none;
-            cursor: pointer;
-            transition: transform 0.2s;
-        }
-
-        .launch-btn:hover:not(.disabled-btn) { transform: translateY(-2px); }
-        .disabled-btn { background: #242C3D; color: var(--text-muted); cursor: not-allowed; }
-
-        /* Sidebar Styling Elements */
-        .status-badge {
-            background-color: rgba(0, 245, 212, 0.1);
-            color: var(--accent-green);
-            padding: 4px 10px;
-            border-radius: 5px;
-            font-size: 0.85rem;
-            font-weight: bold;
-            display: inline-block;
-            margin-bottom: 15px;
-        }
-
-        .sidebar h3 { color: #FFF; margin-bottom: 15px; font-size: 1.3rem; }
-        .sidebar ul { list-style: none; padding-left: 0; }
-        .sidebar li { padding: 10px 0; border-bottom: 1px solid #242C3D; color: var(--text-muted); }
-        .sidebar li strong { color: var(--text-main); }
-
-        footer { text-align: center; padding: 40px 0; color: var(--text-muted); border-top: 1px solid #242C3D; margin-top: 40px; }
-    </style>
-</head>
-<body>
-
-    <div class="container">
-        <nav>
-            <div class="logo">⚛️ Quantum Pioneers Academy</div>
-            <ul>
-                <li><a href="index.html" class="active">Mission Control</a></li>
-            </ul>
-        </nav>
-
-        <header>
-            <h1>Welcome to the Next Era of <span class="highlight">Supercomputing</span></h1>
-            <p>Ordinary computers follow strict, boring rules. Quantum computers break them entirely. We are a student-led squad of accelerated engineers exploring atomic physics to design the software architectures of tomorrow.</p>
-        </header>
-
-        <div class="main-grid">
-            
-            <div class="content-area">
-                
-                <div class="card">
-                    <div class="card-title">🚀 Meet Your Captain</div>
-                    <div class="avatar-panel">
-                        <div class="avatar-img-placeholder">
-                            <img src="IMG_8112.jpeg" alt="Anay Avatar" class="avatar-img" onerror="this.style.display='none';">⚡
-                        </div>
-                        <div class="bubble-speech">
-                            "Hey! I'm Anay. Welcome to the workspace. When I first heard about quantum computing, I thought it required a college degree in rocket science. It doesn't. If you've played sandbox games or like hacking custom mod scripts, you already understand how to bend computational logic rules. Let me break down how this works below!"
-                        </div>
-                    </div>
-                </div>
-
-                <div class="card">
-                    <div class="card-title">🤔 New Here? Let's Break it Down</div>
-                    <p style="color: var(--text-muted); margin-bottom: 20px;">Click the questions below to see how a quantum device flips the entire universe upside down.</p>
-                    
-                    <div class="faq-item">
-                        <button class="faq-question" onclick="toggleFaq(this)">
-                            What makes a Quantum Computer different from my phone? 📱
-                            <span>+</span>
-                        </button>
-                        <div class="faq-answer">
-                            <p style="padding: 15px 0;">Your phone and Xbox run on standard silicon microchips that read data as simple bits: a switch is either <strong>0 (OFF)</strong> or <strong>1 (ON)</strong>. A quantum computer doesn't use microchips. It traps isolated tiny atoms, cooling them down colder than deep outer space, and programs data directly onto the atom's spin behavior!</p>
-                        </div>
-                    </div>
-
-                    <div class="faq-item">
-                        <button class="faq-question" onclick="toggleFaq(this)">
-                            What is a "Qubit" anyway? 🌌
-                            <span>+</span>
-                        </button>
-                        <div class="faq-answer">
-                            <p style="padding: 15px 0;">Think of a regular data bit as a coin lying flat on a desk—it can only show Heads or Tails. A <strong>Qubit</strong> is what happens when you spin that coin! While it's spinning in a fast blur, it is holding a fluid mixture of <em>both states at the exact same split-second</em>. This phenomenon is called <strong>Superposition</strong>, and it lets us process complex codes simultaneously.</p>
-                        </div>
-                    </div>
-
-                    <div class="faq-item">
-                        <button class="faq-question" onclick="toggleFaq(this)">
-                            Wait, can it teleport data? 🔮
-                            <span>+</span>
-                        </button>
-                        <div class="faq-answer">
-                            <p style="padding: 15px 0;">Kind of! Quantum mechanics has a rule called <strong>Entanglement</strong>. If you bind two qubits together, they act like a pair of magical sync-linked dice. If you roll one here in Maryland and hit a 6, your friend's die on the other side of the planet instantly turns into a 6 without a single wire connecting them. We use this connection to make hacker-proof encryption loops!</p>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="card">
-                    <div class="card-title">📚 Course Catalog & Mission Control Hub</div>
-                    <p style="color: var(--text-muted); margin-bottom: 20px;">Click an active module below to jump directly into our secure learning ecosystem to access code challenges, lab sheets, and session logs.</p>
-                    
-                    <div class="catalog-grid">
-                        
-                        <div class="catalog-card active-module">
-                            <div>
-                                <div class="module-status badge-unlocked">🔓 Active Mission</div>
-                                <h4>Module 1: The Physics Frontier</h4>
-                                <p>Uncovering how light frequencies, wave-particle duality, and physical thresholds set the framework for quantum computers.</p>
-                            </div>
-                            <div>
-                                <div class="module-meta">📋 4 Lessons • 1 Lab Assignment</div>
-                                <a href="YOUR_GOOGLE_CLASSROOM_LINK_HERE" target="_blank" class="launch-btn">Launch Classroom →</a>
-                            </div>
-                        </div>
-
-                        <div class="catalog-card locked-module">
-                            <div>
-                                <div class="module-status badge-locked">🔒 Level 2 Required</div>
-                                <h4>Module 2: Gate Matrices</h4>
-                                <p>Transforming geometric grid coordinate spaces using specialized quantum logic gates (Hadamard, Paulis, CNOT).</p>
-                            </div>
-                            <div>
-                                <div class="module-meta">📋 6 Lessons • Math Prerequisite</div>
-                                <button class="launch-btn disabled-btn" disabled>Awaiting Unlock</button>
-                            </div>
-                        </div>
-
-                    </div>
-                </div>
-            </div>
-
-            <div class="sidebar">
-                
-                <div class="card">
-                    <span class="status-badge">⚡ LIVE UPDATE</span>
-                    <h3>Current Operational Level: 1</h3>
-                    <p style="font-size: 0.95rem; color: var(--text-muted); margin-bottom: 15px;">We are preparing the operational workspace for our incoming elite cohort.</p>
-                    <ul>
-                        <li>📅 <strong>Kickoff:</strong> Coming Soon</li>
-                        <li>🎯 <strong>Target:</strong> Photoelectric Wave Mechanics</li>
-                        <li>👥 <strong>Host:</strong> Student Leadership Team</li>
-                    </ul>
-                </div>
-
-                <div class="card">
-                    <h3>🎬 Essential Video Stream</h3>
-                    <p style="font-size: 0.95rem; color: var(--text-muted); margin-bottom: 10px;">Watch this brief video breakdown explaining the fundamentals of qubits before our inaugural briefing session:</p>
-                    
-                    <div class="video-container">
-                        <iframe src="https://www.youtube.com/embed/JhHMJCUmq28" title="Quantum Computing Explainer" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-                    </div>
-                </div>
-
-            </div>
-        </div>
-
-        <footer>
-            <p>Quantum Pioneers Academy © 2026 • Built and Maintained by Student Leadership</p>
-        </footer>
-    </div>
-
-    <script>
-        function toggleFaq(button) {
-            const panel = button.nextElementSibling;
-            const icon = button.querySelector('span');
-            
-            if (panel.style.maxHeight && panel.style.maxHeight !== '0px') {
-                panel.style.maxHeight = '0px';
-                panel.style.padding = '0px 15px';
-                icon.textContent = '+';
-            } else {
-                panel.style.maxHeight = panel.scrollHeight + "px";
-                panel.style.padding = '10px 15px';
-                icon.textContent = '−';
-            }
         }
     </script>
 </body>
