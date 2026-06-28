@@ -3,163 +3,264 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>QuantumQuest Lab Assistant</title>
+    <title>Quantum Computing Foundations - Learning Portal</title>
     <style>
-        :root {
-            --bg-color: #0b0f19;
-            --chat-bg: #161b26;
-            --text-color: #e2e8f0;
-            --primary-accent: #00f2fe;
-            --secondary-accent: #4facfe;
-            --bubble-user: #2563eb;
-            --bubble-bot: #1f293d;
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
 
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: var(--bg-color);
-            color: var(--text-color);
-            margin: 0;
+            background-color: #f0f2f5;
             display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
             height: 100vh;
-        }
-
-        .chat-container {
-            width: 90%;
-            max-width: 600px;
-            height: 80vh;
-            background-color: var(--chat-bg);
-            border-radius: 16px;
-            box-shadow: 0 8px 32px 0 rgba(0, 242, 254, 0.1);
-            border: 1px solid rgba(0, 242, 254, 0.2);
-            display: flex;
-            flex-direction: column;
             overflow: hidden;
         }
 
-        .chat-header {
-            background: linear-gradient(135deg, var(--secondary-accent), var(--primary-accent));
-            color: #000;
+        /* LEFT SIDEBAR NAVIGATION */
+        .sidebar {
+            width: 260px;
+            background-color: #1a237e;
+            color: white;
+            display: flex;
+            flex-direction: column;
             padding: 20px;
-            font-weight: bold;
-            font-size: 1.2rem;
-            text-align: center;
-            letter-spacing: 0.5px;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            box-shadow: 2px 0 5px rgba(0,0,0,0.1);
         }
 
-        .chat-messages {
+        .sidebar h2 {
+            font-size: 1.4rem;
+            margin-bottom: 30px;
+            text-align: center;
+            border-bottom: 1px solid rgba(255,255,255,0.2);
+            padding-bottom: 10px;
+        }
+
+        .nav-links {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .nav-links a {
+            color: #c5cae9;
+            text-decoration: none;
+            font-size: 1rem;
+            padding: 10px;
+            border-radius: 6px;
+            display: block;
+            transition: all 0.2s;
+        }
+
+        .nav-links a:hover, .nav-links a.active {
+            background-color: #283593;
+            color: white;
+        }
+
+        /* MAIN CONTENT AREA */
+        .main-content {
             flex: 1;
-            padding: 20px;
+            padding: 30px;
             overflow-y: auto;
             display: flex;
             flex-direction: column;
-            gap: 12px;
+            gap: 30px;
+        }
+
+        .header-banner {
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        }
+
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 11fr));
+            gap: 20px;
+        }
+
+        .card {
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+            border-top: 4px solid #1a237e;
+        }
+
+        .card h3 {
+            margin-bottom: 10px;
+            color: #1a237e;
+        }
+
+        /* INTEGRATED CHATBOT INTERFACE */
+        .chat-section {
+            background-color: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            display: flex;
+            flex-direction: column;
+            height: 400px;
+            border: 1px solid #e0e0e0;
+        }
+
+        .chat-header {
+            background-color: #0d47a1;
+            color: white;
+            padding: 12px 20px;
+            font-weight: bold;
+            border-top-left-radius: 11px;
+            border-top-right-radius: 11px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .chat-window {
+            flex: 1;
+            padding: 15px;
+            overflow-y: auto;
+            background-color: #f8f9fa;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
         }
 
         .message {
-            max-width: 75%;
-            padding: 12px 16px;
+            max-width: 80%;
+            padding: 10px 14px;
             border-radius: 12px;
-            line-height: 1.4;
             font-size: 0.95rem;
+            line-height: 1.4;
         }
 
         .user-message {
-            background-color: var(--bubble-user);
-            color: #fff;
+            background-color: #0d47a1;
+            color: white;
             align-self: flex-end;
             border-bottom-right-radius: 2px;
         }
 
         .bot-message {
-            background-color: var(--bubble-bot);
-            color: var(--text-color);
+            background-color: #e8eaeed4;
+            color: #202124;
             align-self: flex-start;
             border-bottom-left-radius: 2px;
-            border-left: 3px solid var(--primary-accent);
         }
 
         .chat-input-area {
             display: flex;
-            padding: 15px;
-            background-color: rgba(0, 0, 0, 0.2);
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
-            gap: 10px;
+            padding: 12px;
+            background: white;
+            border-top: 1px solid #e0e0e0;
+            gap: 8px;
+            border-bottom-left-radius: 11px;
+            border-bottom-right-radius: 11px;
         }
 
-        input[type="text"] {
+        #userInput {
             flex: 1;
-            background-color: #0b0f19;
-            border: 1px solid rgba(0, 242, 254, 0.3);
-            border-radius: 8px;
-            padding: 12px;
-            color: #fff;
-            font-size: 1rem;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
             outline: none;
         }
 
-        input[type="text"]:focus {
-            border-color: var(--primary-accent);
+        #userInput:focus {
+            border-color: #0d47a1;
         }
 
-        button {
-            background: linear-gradient(135deg, var(--secondary-accent), var(--primary-accent));
+        .chat-input-area button {
+            background-color: #0d47a1;
+            color: white;
             border: none;
-            color: #000;
-            padding: 12px 20px;
-            border-radius: 8px;
-            font-weight: bold;
+            padding: 0 18px;
+            border-radius: 6px;
             cursor: pointer;
-            transition: opacity 0.2s;
+            font-weight: bold;
         }
 
-        button:hover {
-            opacity: 0.9;
+        .chat-input-area button:hover {
+            background-color: #0a3578;
         }
     </style>
 </head>
 <body>
 
-    <div class="chat-container">
-        <div class="chat-header">
-            ⚛️ QuantumQuest Lab Assistant
+    <div class="sidebar">
+        <h2>Quantum Lab</h2>
+        <ul class="nav-links">
+            <li><a href="#" class="active">Dashboard</a></li>
+            <li><a href="#">Weekly Syllabus</a></li>
+            <li><a href="#">Vector Mathematics</a></li>
+            <li><a href="#">Bloch Sphere Simulations</a></li>
+            <li><a href="#">Settings</a></li>
+        </ul>
+    </div>
+
+    <div class="main-content">
+        <div class="header-banner">
+            <h1>Quantum Computing Foundations</h1>
+            <p>Accelerated conceptual roadmap for incoming high school students.</p>
         </div>
-        <div class="chat-messages" id="chatMessages">
-            <div class="message bot-message">
-                Welcome to QuantumQuest! I am configured to help you and your students break down complex quantum concepts, linear algebra, vector spaces, and qubit behaviors into intuitive, high-impact lessons. What are we exploring today?
+
+        <div class="dashboard-grid">
+            <div class="card">
+                <h3>Week 1: Vector Spaces</h3>
+                <p>Translating classic coordinate planes into state vector movements.</p>
+            </div>
+            <div class="card">
+                <h3>Week 2: Qubit Superposition</h3>
+                <p>Understanding how data exists in multi-state probabilities.</p>
+            </div>
+            <div class="card">
+                <h3>Week 3: Quantum Logic Gates</h3>
+                <p>Exploring NOT, Pauli-X, and Hadamard state rotations.</p>
             </div>
         </div>
-        <div class="chat-input-area">
-            <input type="text" id="userInput" placeholder="Ask a quantum physics or math concept..." onkeypress="handleKeyPress(event)">
-            <button onclick="sendMessage()">Send</button>
+
+        <div class="chat-section">
+            <div class="chat-header">
+                ⚛️ QuantumQuest Lab Assistant
+            </div>
+            <div class="chat-window" id="chatMessages">
+                <div class="message bot-message">
+                    Welcome back to the portal! I am initialized as your QuantumQuest Assistant. Ask me any questions about state vectors, qubits, or quantum principles.
+                </div>
+            </div>
+            <div class="chat-input-area">
+                <input type="text" id="userInput" placeholder="Ask a quantum computing foundation question..." onkeypress="handleKeyPress(event)">
+                <button onclick="sendMessage()">Send</button>
+            </div>
         </div>
     </div>
 
     <script>
         const API_KEY = "AQ.Ab8RN6LQgEgrupCae3czyU-CD98PGkF8HQF7OGizMuUbtQZXrw"; 
-        const API_URL = `https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent?key=${API_KEY}`;
+        // FIX: Pointed directly to the correct gemini-1.5-flash API engine
+        const API_URL = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${API_KEY}`;
 
-        // Instructing the model to always stay in character for your specific goals
-        const SYSTEM_INSTRUCTION = "You are 'QuantumQuest Lab Assistant', an expert AI tutor teaching foundational Quantum Computing math and physics concepts to advanced middle school students preparing for high school. Always translate complex operations (like matrices, qubits, superposition, and gates) into highly visual, conceptual explanations suitable for bright beginners. Avoid regular high school geometry competition prep unless it directly maps to vector rotation or state spaces on the Bloch sphere.";
+        const SYSTEM_INSTRUCTION = "You are 'QuantumQuest Lab Assistant', an expert AI tutor teaching foundational Quantum Computing math and physics concepts to advanced middle school students preparing for high school. Always translate complex operations (like matrices, qubits, superposition, and gates) into highly visual, conceptual explanations suitable for bright beginners. Focus purely on quantum geometry and vector spaces, avoiding general high school math contest questions.";
 
         async function sendMessage() {
             const inputField = document.getElementById("userInput");
             const userText = inputField.value.trim();
             if (!userText) return;
 
-            // Append User Message
+            // Render User Bubble
             appendMessage(userText, "user-message");
             inputField.value = "";
 
-            // Append a temporary loading state
+            // Render Loading Bubble
             const messagesContainer = document.getElementById("chatMessages");
+            const loadingId = "loading-" + Date.now();
             const loadingDiv = document.createElement("div");
             loadingDiv.className = "message bot-message";
-            loadingDiv.innerText = "Analyzing quantum state...";
+            loadingDiv.id = loadingId;
+            loadingDiv.innerHTML = "<i>Analyzing quantum state...</i>";
             messagesContainer.appendChild(loadingDiv);
             messagesContainer.scrollTop = messagesContainer.scrollHeight;
 
@@ -175,19 +276,27 @@
                 });
 
                 const data = await response.json();
-                messagesContainer.removeChild(loadingDiv);
+                const loadingBubble = document.getElementById(loadingId);
 
+                // FIX: Added rigid validation structure to read text out of data block safely
                 if (data.candidates && data.candidates[0].content.parts[0].text) {
                     const botReply = data.candidates[0].content.parts[0].text;
-                    appendMessage(botReply, "bot-message");
+                    if (loadingBubble) {
+                        loadingBubble.textContent = botReply;
+                    }
                 } else {
-                    appendMessage("The quantum channel encountered decoherence (Error fetching response).", "bot-message");
+                    if (loadingBubble) {
+                        loadingBubble.textContent = "The quantum channel encountered decoherence. Please try again.";
+                    }
                 }
             } catch (error) {
-                console.error(error);
-                messagesContainer.removeChild(loadingDiv);
-                appendMessage("Failed to reach the lab server. Please check your network connection.", "bot-message");
+                console.error("API Error:", error);
+                const loadingBubble = document.getElementById(loadingId);
+                if (loadingBubble) {
+                    loadingBubble.textContent = "Failed to connect to the lab core engine. Check your API link.";
+                }
             }
+            messagesContainer.scrollTop = messagesContainer.scrollHeight;
         }
 
         function appendMessage(text, className) {
