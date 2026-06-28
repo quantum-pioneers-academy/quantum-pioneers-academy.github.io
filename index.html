@@ -3,631 +3,208 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Quantum Pioneers Academy - Mission Control</title>
+    <title>QuantumQuest Lab Assistant</title>
     <style>
         :root {
-            --bg-dark: #0B0F19;
-            --card-bg: #161B26;
-            --accent-blue: #00D2FF;
-            --accent-purple: #9D4EDD;
-            --accent-green: #00F5D4;
-            --text-main: #E2E8F0;
-            --text-muted: #94A3B8;
-        }
-
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            --bg-color: #0b0f19;
+            --chat-bg: #161b26;
+            --text-color: #e2e8f0;
+            --primary-accent: #00f2fe;
+            --secondary-accent: #4facfe;
+            --bubble-user: #2563eb;
+            --bubble-bot: #1f293d;
         }
 
         body {
-            background-color: var(--bg-dark);
-            color: var(--text-main);
-            line-height: 1.6;
-            padding: 20px;
-        }
-
-        .container {
-            max-width: 1100px;
-            margin: 0 auto;
-        }
-
-        /* Top Navigation Bar */
-        nav {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 20px;
-            background-color: var(--card-bg);
-            border: 1px solid #242C3D;
-            border-radius: 8px;
-            margin-bottom: 30px;
-        }
-
-        nav .logo {
-            font-weight: bold;
-            font-size: 1.3rem;
-            background: linear-gradient(to right, var(--accent-blue), var(--accent-purple));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
-        nav ul {
-            display: flex;
-            list-style: none;
-            gap: 20px;
-        }
-
-        nav a {
-            color: var(--text-muted);
-            text-decoration: none;
-            font-weight: 600;
-            transition: color 0.2s;
-        }
-
-        nav a:hover, nav a.active {
-            color: var(--accent-blue);
-        }
-
-        /* Hero Header Section */
-        header {
-            text-align: center;
-            padding: 50px 20px;
-            background: radial-gradient(circle at top, #1A233A 0%, var(--bg-dark) 70%);
-            margin-bottom: 40px;
-        }
-
-        header h1 {
-            font-size: 2.8rem;
-            color: #FFF;
-            margin-bottom: 15px;
-        }
-
-        header .highlight {
-            color: var(--accent-blue);
-        }
-
-        header p {
-            color: var(--text-muted);
-            font-size: 1.2rem;
-            max-width: 800px;
-            margin: 0 auto;
-        }
-
-        /* Two-Column Main Layout Grid */
-        .main-grid {
-            display: grid;
-            grid-template-columns: 2fr 1fr;
-            gap: 30px;
-        }
-
-        @media (max-width: 768px) {
-            .main-grid { 
-                grid-template-columns: 1fr; 
-            }
-        }
-
-        /* Reusable Card Elements */
-        .card {
-            background-color: var(--card-bg);
-            border: 1px solid #242C3D;
-            border-radius: 10px;
-            padding: 30px;
-            margin-bottom: 30px;
-        }
-
-        .card-title {
-            font-size: 1.6rem;
-            margin-bottom: 20px;
-            color: #FFF;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        /* Portrait Image Layout (Configured for IMG_8112.jpeg) */
-        .avatar-panel {
-            display: flex;
-            gap: 20px;
-            align-items: center;
-            background: linear-gradient(135deg, #1E293B, #0F172A);
-            border: 1px solid #334155;
-            padding: 20px;
-            border-radius: 8px;
-            margin-top: 15px;
-        }
-
-        .avatar-img-box {
-            width: 110px;
-            height: 110px;
-            border-radius: 12px;
-            overflow: hidden;
-            border: 3px solid var(--accent-blue);
-            box-shadow: 0 0 15px rgba(0, 210, 255, 0.3);
-            flex-shrink: 0;
-        }
-
-        .avatar-img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            object-position: center top;
-        }
-
-        .bubble-speech {
-            color: var(--text-main);
-            font-style: normal;
-            font-size: 1.05rem;
-            line-height: 1.5;
-        }
-
-        /* Interactive FAQ Accordion Styles */
-        .faq-item {
-            margin-bottom: 12px;
-            border: 1px solid #242C3D;
-            border-radius: 6px;
-            overflow: hidden;
-        }
-
-        .faq-question {
-            background-color: #0F131C;
-            padding: 15px;
-            width: 100%;
-            text-align: left;
-            border: none;
-            color: #FFF;
-            font-size: 1.05rem;
-            font-weight: 600;
-            cursor: pointer;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            transition: background 0.3s;
-        }
-
-        .faq-question:hover {
-            background-color: #1A2233;
-        }
-
-        .faq-answer {
-            background-color: var(--card-bg);
-            padding: 0 15px;
-            max-height: 0;
-            overflow: hidden;
-            transition: max-height 0.3s ease-out, padding 0.3s ease-out;
-            color: var(--text-muted);
-            font-size: 0.95rem;
-        }
-
-        /* Video Embed Aspect Ratio Box */
-        .video-container {
-            position: relative;
-            padding-bottom: 56.25%;
-            height: 0;
-            overflow: hidden;
-            border-radius: 8px;
-            border: 1px solid #242C3D;
-            margin-top: 15px;
-        }
-
-        .video-container iframe {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-        }
-
-        /* Learning Catalog Grid Component */
-        .catalog-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-            gap: 20px;
-            margin-top: 20px;
-        }
-
-        .catalog-card {
-            background-color: #0F131C;
-            border: 1px solid #242C3D;
-            border-radius: 8px;
-            padding: 20px;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            margin: 0;
             display: flex;
             flex-direction: column;
-            justify-content: space-between;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
         }
 
-        .active-module { border-top: 4px solid var(--accent-blue); }
-        .locked-module { border-top: 4px solid var(--text-muted); opacity: 0.6; }
-
-        .module-status {
-            font-size: 0.75rem;
-            font-weight: bold;
-            text-transform: uppercase;
-            margin-bottom: 10px;
-        }
-
-        .badge-unlocked { color: var(--accent-green); }
-        .badge-locked { color: var(--text-muted); }
-
-        .catalog-card h4 { color: #FFF; margin-bottom: 8px; font-size: 1.1rem; }
-        .catalog-card p { font-size: 0.9rem; color: var(--text-muted); margin-bottom: 15px; }
-        .module-meta { font-size: 0.8rem; color: var(--accent-purple); font-weight: 600; margin-bottom: 15px; }
-
-        .launch-btn {
-            display: block;
-            text-align: center;
-            background: linear-gradient(90deg, #00A2E8, var(--accent-blue));
-            color: #FFF;
-            text-decoration: none;
-            padding: 10px;
-            border-radius: 5px;
-            font-size: 0.9rem;
-            font-weight: bold;
-            border: none;
-            cursor: pointer;
-            transition: transform 0.2s;
-        }
-
-        .launch-btn:hover:not(.disabled-btn) { transform: translateY(-2px); }
-        .disabled-btn { background: #242C3D; color: var(--text-muted); cursor: not-allowed; }
-
-        /* Sidebar Styling Elements */
-        .status-badge {
-            background-color: rgba(0, 245, 212, 0.1);
-            color: var(--accent-green);
-            padding: 4px 10px;
-            border-radius: 5px;
-            font-size: 0.85rem;
-            font-weight: bold;
-            display: inline-block;
-            margin-bottom: 15px;
-        }
-
-        .sidebar h3 { color: #FFF; margin-bottom: 15px; font-size: 1.3rem; }
-        .sidebar ul { list-style: none; padding-left: 0; }
-        .sidebar li { padding: 10px 0; border-bottom: 1px solid #242C3D; color: var(--text-muted); }
-        .sidebar li strong { color: var(--text-main); }
-
-        /* 🤖 EMBEDDED MODAL INTERACTIVE CHATBOT GRAPHICS */
-        .ai-chat-widget {
-            position: fixed;
-            bottom: 25px;
-            right: 25px;
-            width: 380px;
-            height: 520px;
-            background-color: #111622;
-            border: 2px solid var(--accent-purple);
-            border-radius: 12px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        .chat-container {
+            width: 90%;
+            max-width: 600px;
+            height: 80vh;
+            background-color: var(--chat-bg);
+            border-radius: 16px;
+            box-shadow: 0 8px 32px 0 rgba(0, 242, 254, 0.1);
+            border: 1px solid rgba(0, 242, 254, 0.2);
             display: flex;
             flex-direction: column;
-            z-index: 1000;
             overflow: hidden;
         }
 
         .chat-header {
-            background: linear-gradient(90deg, #1E1B4B, #4C1D95);
-            padding: 12px;
-            color: #FFF;
+            background: linear-gradient(135deg, var(--secondary-accent), var(--primary-accent));
+            color: #000;
+            padding: 20px;
             font-weight: bold;
-            font-size: 0.95rem;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            border-bottom: 1px solid var(--accent-purple);
+            font-size: 1.2rem;
+            text-align: center;
+            letter-spacing: 0.5px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
         }
 
-        .chat-header-title {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        .chat-header-status {
-            font-size: 0.75rem;
-            background-color: rgba(0, 245, 212, 0.2);
-            color: var(--accent-green);
-            padding: 2px 6px;
-            border-radius: 4px;
-            text-transform: uppercase;
-            font-family: monospace;
-        }
-
-        .chat-logs {
-            flex-grow: 1;
-            padding: 15px;
+        .chat-messages {
+            flex: 1;
+            padding: 20px;
             overflow-y: auto;
             display: flex;
             flex-direction: column;
             gap: 12px;
-            font-size: 0.88rem;
         }
 
-        .msg { padding: 10px; border-radius: 8px; max-width: 90%; line-height: 1.4; }
-        .msg.bot { background-color: #1E293B; color: var(--text-main); align-self: flex-start; border-left: 3px solid var(--accent-blue); }
-        .msg.user { background-color: var(--accent-purple); color: #FFF; align-self: flex-end; font-family: 'Courier New', Courier, monospace; }
+        .message {
+            max-width: 75%;
+            padding: 12px 16px;
+            border-radius: 12px;
+            line-height: 1.4;
+            font-size: 0.95rem;
+        }
+
+        .user-message {
+            background-color: var(--bubble-user);
+            color: #fff;
+            align-self: flex-end;
+            border-bottom-right-radius: 2px;
+        }
+
+        .bot-message {
+            background-color: var(--bubble-bot);
+            color: var(--text-color);
+            align-self: flex-start;
+            border-bottom-left-radius: 2px;
+            border-left: 3px solid var(--primary-accent);
+        }
 
         .chat-input-area {
             display: flex;
-            border-top: 1px solid #242C3D;
-            background-color: #0F131C;
+            padding: 15px;
+            background-color: rgba(0, 0, 0, 0.2);
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            gap: 10px;
         }
 
-        .chat-input-area input {
-            flex-grow: 1;
-            background: transparent;
-            border: none;
+        input[type="text"] {
+            flex: 1;
+            background-color: #0b0f19;
+            border: 1px solid rgba(0, 242, 254, 0.3);
+            border-radius: 8px;
             padding: 12px;
-            color: #FFF;
+            color: #fff;
+            font-size: 1rem;
             outline: none;
-            font-family: 'Courier New', Courier, monospace;
         }
 
-        .chat-input-area button {
-            background-color: var(--accent-purple);
-            color: white;
+        input[type="text"]:focus {
+            border-color: var(--primary-accent);
+        }
+
+        button {
+            background: linear-gradient(135deg, var(--secondary-accent), var(--primary-accent));
             border: none;
-            padding: 0 15px;
-            cursor: pointer;
+            color: #000;
+            padding: 12px 20px;
+            border-radius: 8px;
             font-weight: bold;
+            cursor: pointer;
+            transition: opacity 0.2s;
         }
 
-        .console-code {
-            font-family: 'Courier New', Courier, monospace;
-            background-color: #0B0F19;
-            padding: 6px;
-            border-radius: 4px;
-            color: var(--accent-green);
-            display: block;
-            margin-top: 5px;
-            font-size: 0.82rem;
-            white-space: pre-wrap;
+        button:hover {
+            opacity: 0.9;
         }
-
-        footer { text-align: center; padding: 40px 0; color: var(--text-muted); border-top: 1px solid #242C3D; margin-top: 40px; }
     </style>
 </head>
 <body>
 
-    <div class="container">
-        <nav>
-            <div class="logo">⚛️ Quantum Pioneers Academy</div>
-            <ul>
-                <li><a href="index.html" class="active">Mission Control</a></li>
-            </ul>
-        </nav>
-
-        <header>
-            <h1>Welcome to the Next Era of <span class="highlight">Supercomputing</span></h1>
-            <p>Ordinary computers follow strict, boring rules. Quantum computers break them entirely. We are a student-led squad of accelerated engineers exploring atomic physics to design the software architectures of tomorrow.</p>
-        </header>
-
-        <div class="main-grid">
-            
-            <div class="content-area">
-                
-                <div class="card">
-                    <div class="card-title">🚀 Meet Your Captain</div>
-                    <div class="avatar-panel">
-                        <div class="avatar-img-box">
-                            <img src="IMG_8112.jpeg" alt="Anay Portrait Photo" class="avatar-img">
-                        </div>
-                        <div class="bubble-speech">
-                            "Hey! I'm Anay. Welcome to our workspace. When I first heard about quantum computing, I thought it required a college degree in rocket science. It doesn't! If you've ever jumped into a <strong>custom game lobby</strong> or messed around with <strong>game mods</strong>, you know how you can completely alter the server physics—like turning off map gravity or allowing players to glitch into custom states. Quantum computing is exactly like that. It's like opening up a hidden <strong>developer menu for the universe</strong>, where we can rewrite the default rules of data. Let me break down how these custom mechanics work below!"
-                        </div>
-                    </div>
-                </div>
-
-                <div class="card">
-                    <div class="card-title">🤔 New Here? Let's Break it Down</div>
-                    <p style="color: var(--text-muted); margin-bottom: 20px;">Click the questions below to see how a quantum device flips the entire universe upside down.</p>
-                    
-                    <div class="faq-item">
-                        <button class="faq-question" onclick="toggleFaq(this)">
-                            What makes a Quantum Computer different from my phone? 📱
-                            <span>+</span>
-                        </button>
-                        <div class="faq-answer">
-                            <p style="padding: 15px 0;">Standard electronics run on regular silicon microchips that read data as simple bits: a path is either strictly <strong>0 (OFF)</strong> or strictly <strong>1 (ON)</strong>. A quantum computer doesn't use microchips. Instead, it traps tiny single atoms, freezes them colder than outer space, and programs data directly onto how the atoms vibrate and spin!</p>
-                        </div>
-                    </div>
-
-                    <div class="faq-item">
-                        <button class="faq-question" onclick="toggleFaq(this)">
-                            What is a "Qubit" anyway? 🌌
-                            <span>+</span>
-                        </button>
-                        <div class="faq-answer">
-                            <p style="padding: 15px 0;">Think of a regular data bit as a coin resting flat on a desk—it's locked as either Heads or Tails. A <strong>Qubit</strong> is what happens when you spin that coin! While it's spinning in a fast blur, it holds a fluid mixture of <em>both states at the exact same split-second</em>. This phenomenon is called <strong>Superposition</strong>, and it lets us process thousands of complex data paths simultaneously.</p>
-                        </div>
-                    </div>
-
-                    <div class="faq-item">
-                        <button class="faq-question" onclick="toggleFaq(this)">
-                            Wait, can it link data across distances? 🔮
-                            <span>+</span>
-                        </button>
-                        <div class="faq-answer">
-                            <p style="padding: 15px 0;">Yes! Quantum mechanics has a rule called <strong>Entanglement</strong>. If you bind two qubits together, they act like a pair of magical sync-linked game items. If you change the state of one here in Maryland, its linked partner on the other side of the planet instantly updates to match it without a single wire or network path connecting them. We use this connection to build hacker-proof encryption setups!</p>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="card">
-                    <div class="card-title">📚 Course Catalog & Mission Control Hub</div>
-                    <p style="color: var(--text-muted); margin-bottom: 20px;">Click an active module below to jump directly into our secure learning ecosystem to access code challenges, lab sheets, and session logs.</p>
-                    
-                    <div class="catalog-grid">
-                        
-                        <div class="catalog-card active-module">
-                            <div>
-                                <div class="module-status badge-unlocked">🔓 Active Mission</div>
-                                <h4>Module 1: The Physics Frontier</h4>
-                                <p>Uncovering how light frequencies, wave-particle duality, and physical thresholds set the framework for quantum computers.</p>
-                            </div>
-                            <div>
-                                <div class="module-meta">📋 4 Lessons • 1 Lab Assignment</div>
-                                <a href="YOUR_GOOGLE_CLASSROOM_LINK_HERE" target="_blank" class="launch-btn">Launch Classroom →</a>
-                            </div>
-                        </div>
-
-                        <div class="catalog-card locked-module">
-                            <div>
-                                <div class="module-status badge-locked">🔒 Level 2 Required</div>
-                                <h4>Module 2: Gate Matrices</h4>
-                                <p>Transforming geometric grid coordinate spaces using specialized quantum logic gates (Hadamard, Paulis, CNOT).</p>
-                            </div>
-                            <div>
-                                <div class="module-meta">📋 6 Lessons • Math Prerequisite</div>
-                                <button class="launch-btn disabled-btn" disabled>Awaiting Unlock</button>
-                            </div>
-                        </div>
-
-                    </div>
-                </div>
-            </div>
-
-            <div class="sidebar">
-                
-                <div class="card">
-                    <span class="status-badge">⚡ LIVE UPDATE</span>
-                    <h3>Current Operational Level: 1</h3>
-                    <p style="font-size: 0.95rem; color: var(--text-muted); margin-bottom: 15px;">We are preparing the operational workspace for our incoming elite cohort.</p>
-                    <ul>
-                        <li>📅 <strong>Kickoff:</strong> Coming Soon</li>
-                        <li>🎯 <strong>Target:</strong> Photoelectric Wave Mechanics</li>
-                        <li>👥 <strong>Host:</strong> Student Leadership Team</li>
-                    </ul>
-                </div>
-
-                <div class="card">
-                    <h3>🎬 Essential Video Stream</h3>
-                    <p style="font-size: 0.95rem; color: var(--text-muted); margin-bottom: 10px;">Watch this brief video breakdown explaining the fundamentals of qubits before our inaugural briefing session:</p>
-                    
-                    <div class="video-container">
-                        <iframe src="https://www.youtube.com/embed/JhHMJCUmq28" title="Quantum Computing Explainer" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-                    </div>
-                </div>
-
-            </div>
-        </div>
-
-        <footer>
-            <p>Quantum Pioneers Academy © 2026 • Built and Maintained by Student Leadership</p>
-        </footer>
-    </div>
-
-    <div class="ai-chat-widget">
+    <div class="chat-container">
         <div class="chat-header">
-            <div class="chat-header-title"><span>👾</span> Console.Log</div>
-            <div class="chat-header-status">Online</div>
+            ⚛️ QuantumQuest Lab Assistant
         </div>
-        <div class="chat-logs" id="chatLogs">
-            <div class="msg bot">
-                <strong>Yo! Welcome to the dev log.</strong> I'm Console.Log, your quantum runtime helper. Drop any questions you have about quantum physics, math matrices, or how our academy works!
-                <br><br>
-                Think of me like a game-patch helper. Go ahead and test out our live sandbox macros:
-                <span class="console-code">/spin  - Break standard bit gravity (Superposition)\n/link  - Sync up two item inventories (Entanglement)\n/status - Pull up the server temp & state metrics</span>
+        <div class="chat-messages" id="chatMessages">
+            <div class="message bot-message">
+                Welcome to QuantumQuest! I am configured to help you and your students break down complex quantum concepts, linear algebra, vector spaces, and qubit behaviors into intuitive, high-impact lessons. What are we exploring today?
             </div>
         </div>
         <div class="chat-input-area">
-            <input type="text" id="chatInput" placeholder="Ask a question or type a macro here..." onkeydown="if(event.key === 'Enter') sendChatMessage()">
-            <button onclick="sendChatMessage()">Send</button>
+            <input type="text" id="userInput" placeholder="Ask a quantum physics or math concept..." onkeypress="handleKeyPress(event)">
+            <button onclick="sendMessage()">Send</button>
         </div>
     </div>
 
     <script>
-        let qubitState = "Standard Flat Bit (0)";
-        let isEntangled = false;
+        const API_KEY = "AQ.Ab8RN6LQgEgrupCae3czyU-CD98PGkF8HQF7OGizMuUbtQZXrw"; 
+        const API_URL = `https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent?key=${API_KEY}`;
 
-        function toggleFaq(button) {
-            const panel = button.nextElementSibling;
-            const icon = button.querySelector('span');
-            if (panel.style.maxHeight && panel.style.maxHeight !== '0px') {
-                panel.style.maxHeight = '0px';
-                panel.style.padding = '0px 15px';
-                icon.textContent = '+';
-            } else {
-                panel.style.maxHeight = panel.scrollHeight + "px";
-                panel.style.padding = '10px 15px';
-                icon.textContent = '−';
+        // Instructing the model to always stay in character for your specific goals
+        const SYSTEM_INSTRUCTION = "You are 'QuantumQuest Lab Assistant', an expert AI tutor teaching foundational Quantum Computing math and physics concepts to advanced middle school students preparing for high school. Always translate complex operations (like matrices, qubits, superposition, and gates) into highly visual, conceptual explanations suitable for bright beginners. Avoid regular high school geometry competition prep unless it directly maps to vector rotation or state spaces on the Bloch sphere.";
+
+        async function sendMessage() {
+            const inputField = document.getElementById("userInput");
+            const userText = inputField.value.trim();
+            if (!userText) return;
+
+            // Append User Message
+            appendMessage(userText, "user-message");
+            inputField.value = "";
+
+            // Append a temporary loading state
+            const messagesContainer = document.getElementById("chatMessages");
+            const loadingDiv = document.createElement("div");
+            loadingDiv.className = "message bot-message";
+            loadingDiv.innerText = "Analyzing quantum state...";
+            messagesContainer.appendChild(loadingDiv);
+            messagesContainer.scrollTop = messagesContainer.scrollHeight;
+
+            try {
+                const response = await fetch(API_URL, {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({
+                        contents: [{
+                            parts: [{ text: `${SYSTEM_INSTRUCTION}\n\nUser Question: ${userText}` }]
+                        }]
+                    })
+                });
+
+                const data = await response.json();
+                messagesContainer.removeChild(loadingDiv);
+
+                if (data.candidates && data.candidates[0].content.parts[0].text) {
+                    const botReply = data.candidates[0].content.parts[0].text;
+                    appendMessage(botReply, "bot-message");
+                } else {
+                    appendMessage("The quantum channel encountered decoherence (Error fetching response).", "bot-message");
+                }
+            } catch (error) {
+                console.error(error);
+                messagesContainer.removeChild(loadingDiv);
+                appendMessage("Failed to reach the lab server. Please check your network connection.", "bot-message");
             }
         }
 
-        function sendChatMessage() {
-            const input = document.getElementById('chatInput');
-            const logs = document.getElementById('chatLogs');
-            const rawInput = input.value.trim();
-            if(!rawInput) return;
+        function appendMessage(text, className) {
+            const messagesContainer = document.getElementById("chatMessages");
+            const messageDiv = document.createElement("div");
+            messageDiv.className = `message ${className}`;
+            messageDiv.innerText = text;
+            messagesContainer.appendChild(messageDiv);
+            messagesContainer.scrollTop = messagesContainer.scrollHeight;
+        }
 
-            // Render User Input
-            const userMsg = document.createElement('div');
-            userMsg.className = 'msg user';
-            userMsg.textContent = rawInput;
-            logs.appendChild(userMsg);
-
-            const query = rawInput.toLowerCase();
-            input.value = '';
-            logs.scrollTop = logs.scrollHeight;
-
-            // Engine Processing Router
-            setTimeout(() => {
-                const botMsg = document.createElement('div');
-                botMsg.className = 'msg bot';
-                
-                // --- CONSOLE COMMAND HOOKS ---
-                if (query.startsWith('/spin')) {
-                    qubitState = "Superposition Spinning Blur";
-                    botMsg.innerHTML = "🌀 <strong>Macro Activated: /spin</strong><br>Boom! We just hit a regular data bit with a microwave pulse. It's now spinning at high speed holding both paths open simultaneously.<br><span class='console-code'>Qubit-A Status: [▓▓▓▓▓░░░░░] Blurring 50% Heads |0⟩ and 50% Tails |1⟩</span>";
-                } 
-                else if (query.startsWith('/link')) {
-                    isEntangled = true;
-                    botMsg.innerHTML = "🔗 <strong>Macro Activated: /link</strong><br>Inventories locked! Qubit-A and Qubit-B are now officially sync-modded. Whatever you do to one instantly overrides the other.<br><span class='console-code'>Link State: Connected\nPing Delay: 0.00ms (Shatters standard server limits)</span>";
-                } 
-                else if (query.startsWith('/status')) {
-                    botMsg.innerHTML = "📊 <strong>Server Diagnostics:</strong><br><span class='console-code'>Qubit Vector: " + qubitState + "\nModded Sync Link: " + isEntangled + "\nServer Temp: -459°F (Absolute Zero to stop atoms from glitching)</span>";
-                }
-                
-                // --- CUSTOM FRIENDLY RESPONSES FOR PHYSICS & MATH ---
-                else if (query.includes('measurement') || query.includes('collapse') || query.includes('look') || query.includes('observe')) {
-                    botMsg.innerHTML = "👁️ <strong>The 'Observation' Glitch:</strong> This is the weirdest rule in the game. As long as you leave an atom alone, it stays in a spinning blur (superposition). But the exact millisecond a sensor tries to look at it, the blur instantly breaks! The coin drops flat onto a 0 or 1. It's exactly like a rendering glitch in an open-world game that forces objects to snap into high-detail models only when your player camera spins to look directly at them!";
-                }
-                else if (query.includes('math') || query.includes('matrix') || query.includes('matrices') || query.includes('vector') || query.includes('geometry')) {
-                    botMsg.innerHTML = "📐 <strong>Quantum Math Math:</strong> Regular computers do standard math (1+1=2) along flat logic lines. Quantum computers use **Coordinate Matrices and Geometry**. Instead of counting things, they track angles on a 3D grid sphere (the *Bloch Sphere*). Since you guys already crushed Geometry 1, think of it as using translation and rotation code to spin an arrow to a precise coordinate point on a map. Quantum gates are basically commands that tell the arrow how many degrees to turn!";
-                }
-                else if (query.includes('wave') || query.includes('light') || query.includes('photon') || query.includes('frequency') || query.includes('photoelectric')) {
-                    botMsg.innerHTML = "🌊 <strong>Double Identity (Wave-Particle Duality):</strong> Subatomic things like photons of light have a wild double identity. They move through a room spreading out like fluid ripples on water (waves), but the second they smash into a target, they hit like a solid pellet (particles)! In Module 1, we map out light frequencies to see exactly how much energy we need to beam at an atom to tweak its values without crashing it.";
-                }
-                else if (query.includes('schrodinger') || query.includes('cat')) {
-                    botMsg.innerHTML = "🐈 <strong>Schrödinger's Cat Explainer:</strong> This is a classic thought experiment about superposition. If you trap a cat in a closed bunker with a random atomic trigger, physics says until you open the hatch and look, the atom is in a fluid mix of both states—meaning the cat is simultaneously **both completely awake and asleep at the exact same split-second**. Opening the bunker forces the server to pick one reality and load it.";
-                }
-                else if (query.includes('gate') || query.includes('hadamard') || query.includes('cnot')) {
-                    botMsg.innerHTML = "🎛️ <strong>Logic Gate Upgrades:</strong> Normal logic gates are simple on/off switches. Quantum gates change how an atom spins. A **Hadamard Gate** triggers a spin mod, immediately tossing a flat bit into a superposition blur. A **CNOT Gate** acts like an *'IF statement'* code block that links two qubits together so they become sync-entangled!";
-                }
-                
-                // --- CORE CONCEPTS (FALLBACKS) ---
-                else if (query.includes('superposition') || query.includes('spinning') || query.includes('coin')) {
-                    botMsg.innerHTML = "🎯 <strong>Superposition 101:</strong> Normal bits are like a character stuck standing still at Point A or Point B. A qubit is like a speed-runner glitching out so fast that they exist at **both points at once**. Try typing <span class='console-code'>/spin</span> to see it!";
-                } 
-                else if (query.includes('entanglement') || query.includes('linked') || query.includes('teleport')) {
-                    botMsg.innerHTML = "🎯 <strong>Entanglement 101:</strong> This is like two players sharing an inventory space across a giant map. If Player 1 drops an item in Maryland, it immediately duplicates inside Player 2's slot across the world without any lag. Try typing <span class='console-code'>/link</span> to activate it!";
-                } 
-                else if (query.includes('mod') || query.includes('lobby') || query.includes('server')) {
-                    botMsg.innerHTML = "🎮 <strong>Lobby Rules:</strong> Just like getting administrator access in a private server lets you change game gravity or jump heights, quantum computers let us open up the universe's 'developer console' to mess with data rules regular phones can't touch!";
-                } 
-                else if (query.includes('module') || query.includes('class') || query.includes('assignment') || query.includes('lesson')) {
-                    botMsg.innerHTML = "📋 <strong>Mission Log Update:</strong> Module 1 is completely live right now. Hit that 'Launch Classroom' button in our catalog card up above to check out our main challenge sheets!";
-                } 
-                else {
-                    botMsg.innerHTML = "📡 <strong>Got your query, logging it now!</strong> That's actually an awesome question. To help me explain it best, tell me: Are you trying to understand the **underlying physics code**, the **matrix/geometry math**, or how we **mod** it inside our console registers?";
-                }
-                
-                logs.appendChild(botMsg);
-                logs.scrollTop = logs.scrollHeight;
-            }, 400);
+        function handleKeyPress(event) {
+            if (event.key === "Enter") {
+                sendMessage();
+            }
         }
     </script>
+
 </body>
 </html>
